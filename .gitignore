@@ -314,3 +314,7 @@ dependencies.d
 deps.s
 duckdb.cpp.tmp
 duckdb.hpp.tmp
+
+# R CMD Check artifacts
+tools/duckdb.Rcheck/
+tools/*.tar.gz
