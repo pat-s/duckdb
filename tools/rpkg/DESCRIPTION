@@ -25,6 +25,7 @@ Imports:
     utils
 Suggests: 
     callr,
+    covr,
     DBItest,
     nycflights13
 Encoding: UTF-8
@@ -36,3 +37,4 @@ Collate:
     'Driver.R'
     'Connection.R'
     'Result.R'
+    'zzz.R'
