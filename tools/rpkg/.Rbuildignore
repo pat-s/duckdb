@@ -5,3 +5,10 @@ git
 configure
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^codecov\.yml$
+^\.ccache$
+^\.github$
+^tic\.R$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
