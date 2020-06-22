@@ -9,12 +9,16 @@ NULL
 
 DBDIR_MEMORY <- ":memory:"
 
-#' DuckDB driver
+#' DuckDB main workhorse driver
 #'
 #' TBD.
 #'
 #' @export
 #' @import methods DBI
+#' @param dbdir (`character`)\cr
+#'   FIXME
+#' @param read_only (`logical`)\cr
+#'   FIXME
 #' @examples
 #' \dontrun{
 #' #' library(DBI)
@@ -23,6 +27,7 @@ DBDIR_MEMORY <- ":memory:"
 #'
 duckdb <- function(dbdir = DBDIR_MEMORY, read_only = FALSE) {
   check_flag(read_only)
+
   new(
     "duckdb_driver",
     database_ref = .Call(duckdb_startup_R, dbdir, read_only),
@@ -60,6 +65,8 @@ setMethod(
 
 #' @rdname DBI
 #' @inheritParams DBI::dbConnect
+#' @param dbdir (`character`)\cr
+#' @param debug (`character`)\cr
 #' @export
 setMethod(
   "dbConnect", "duckdb_driver",
@@ -146,6 +153,7 @@ setMethod(
 )
 
 
+#' @rdname DBI
 #' @export
 duckdb_shutdown <- function(drv) {
   if (!is(drv, "duckdb_driver")) {
@@ -155,6 +163,9 @@ duckdb_shutdown <- function(drv) {
     warning("invalid driver object, already closed?")
     invisible(FALSE)
   }
+  # suppress 'no visible binding for global variable'
+  duckdb_shutdown_R = NULL
+
   .Call(duckdb_shutdown_R, drv@database_ref)
   invisible(TRUE)
 }
@@ -166,6 +177,12 @@ is_installed <- function(pkg) {
 
 #' @importFrom DBI dbConnect
 #' @importFrom dbplyr src_dbi
+#' @param path (`character`)\cr
+#'   FIXME
+#' @param create (`logical`)\cr
+#'   FIXME
+#' @param read_only (`logical`)\cr
+#' @rdname DBI
 #' @export
 src_duckdb <- function(path = ":memory:", create = FALSE, read_only = FALSE) {
   if (!is_installed("dbplyr")) {

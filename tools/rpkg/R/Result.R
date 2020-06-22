@@ -17,6 +17,7 @@ duckdb_result <- function(connection, stmt_lst) {
 }
 
 duckdb_execute <- function(res) {
+
   res@env$resultset <- .Call(duckdb_execute_R, res@stmt_lst$ref)
   attr(res@env$resultset, "row.names") <-
     c(NA_integer_, as.integer(-1 * length(res@env$resultset[[1]])))
@@ -55,6 +56,7 @@ setMethod(
   "dbClearResult", "duckdb_result",
   function(res, ...) {
     if (res@env$open) {
+
       .Call(duckdb_release_R, res@stmt_lst$ref)
       res@env$open <- FALSE
     } else {

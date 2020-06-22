@@ -9,6 +9,8 @@
 \alias{dbDataType,duckdb_driver-method}
 \alias{dbIsValid,duckdb_driver-method}
 \alias{dbGetInfo,duckdb_driver-method}
+\alias{duckdb_shutdown}
+\alias{src_duckdb}
 \alias{duckdb_connection-class}
 \alias{show,duckdb_connection-method}
 \alias{dbIsValid,duckdb_connection-method}
@@ -53,6 +55,10 @@
 \S4method{dbIsValid}{duckdb_driver}(dbObj, ...)
 
 \S4method{dbGetInfo}{duckdb_driver}(dbObj, ...)
+
+duckdb_shutdown(drv)
+
+src_duckdb(path = ":memory:", create = FALSE, read_only = FALSE)
 
 \S4method{show}{duckdb_connection}(object)
 
@@ -121,30 +127,59 @@
 or an existing \linkS4class{DBIConnection}
 object (in order to clone an existing connection).}
 
+\item{dbdir}{(`character`)\cr}
+
 \item{...}{authentication arguments needed by the DBMS instance; these
 typically include \code{user}, \code{password}, \code{host}, \code{port}, \code{dbname}, etc.
 For details see the appropriate \code{DBIDriver}.}
+
+\item{debug}{(`character`)\cr}
+
+\item{read_only}{(`logical`)\cr}
 
 \item{dbObj}{A object inheriting from \linkS4class{DBIDriver}
 or \linkS4class{DBIConnection}}
 
 \item{obj}{An R object whose SQL type we want to determine.}
 
+\item{path}{(`character`)\cr
+FIXME}
+
+\item{create}{(`logical`)\cr
+FIXME}
+
 \item{conn}{A \linkS4class{DBIConnection} object, as returned by
 \code{\link[DBI:dbConnect]{dbConnect()}}.}
 
+\item{shutdown}{(`logical`)\cr
+FIXME}
+
 \item{statement}{a character string containing SQL.}
+
+\item{immediate}{(`logical`)\cr
+FIXME}
 
 \item{name}{A character string specifying the unquoted DBMS table name,
 or the result of a call to \code{\link[DBI:dbQuoteIdentifier]{dbQuoteIdentifier()}}.}
 
 \item{value}{a \link{data.frame} (or coercible to data.frame).}
 
-\item{overwrite}{Allow overwriting the destination table. Cannot be
-`TRUE` if `append` is also `TRUE`.}
+\item{row.names}{(`character`)\cr
+Row names.}
 
-\item{append}{Allow appending to the destination table. Cannot be
-`TRUE` if `overwrite` is also `TRUE`.}
+\item{overwrite}{(`logical`)\cr
+Allow overwriting the destination table. Cannot be `TRUE` if `append` is
+also `TRUE`.}
+
+\item{append}{(`logical`)\cr
+Allow appending to the destination table. Cannot be `TRUE` if `overwrite` is
+also `TRUE`.}
+
+\item{field.types}{(`character`)\cr
+FIXME}
+
+\item{temporary}{(`character`)\cr
+FIXME}
 
 \item{res}{An object inheriting from \linkS4class{DBIResult}.}
 

@@ -1,7 +1,5 @@
 #' @include Driver.R
-
 NULL
-
 
 duckdb_connection <- function(duckdb_driver, debug) {
   new(
@@ -23,7 +21,6 @@ duckdb_unregister <- function(conn, name) {
   .Call(duckdb_unregister_R, conn@conn_ref, as.character(name))
   invisible(TRUE)
 }
-
 
 #' @rdname DBI
 #' @export
@@ -64,6 +61,8 @@ setMethod(
 
 #' @rdname DBI
 #' @inheritParams DBI::dbDisconnect
+#' @param shutdown (`logical`)\cr
+#'   FIXME
 #' @export
 setMethod(
   "dbDisconnect", "duckdb_connection",
@@ -71,6 +70,7 @@ setMethod(
     if (!dbIsValid(conn)) {
       warning("Connection already closed.", call. = FALSE)
     }
+
     .Call(duckdb_disconnect_R, conn@conn_ref)
     if (shutdown) {
       duckdb_shutdown(conn@driver)
@@ -82,6 +82,8 @@ setMethod(
 
 #' @rdname DBI
 #' @inheritParams DBI::dbSendQuery
+#' @param immediate (`logical`)\cr
+#'   FIXME
 #' @export
 setMethod(
   "dbSendQuery", c("duckdb_connection", "character"),
@@ -90,6 +92,7 @@ setMethod(
       cat("Q ", statement, "\n")
     }
     statement <- enc2utf8(statement)
+
     stmt_lst <- .Call(duckdb_prepare_R, conn@conn_ref, statement)
 
     res <- duckdb_result(
@@ -124,10 +127,18 @@ duckdb_random_string <- function(x) {
 
 #' @rdname DBI
 #' @inheritParams DBI::dbWriteTable
-#' @param overwrite Allow overwriting the destination table. Cannot be
-#'   `TRUE` if `append` is also `TRUE`.
-#' @param append Allow appending to the destination table. Cannot be
-#'   `TRUE` if `overwrite` is also `TRUE`.
+#' @param row.names (`character`)\cr
+#'   Row names.
+#' @param overwrite (`logical`)\cr
+#'  Allow overwriting the destination table. Cannot be `TRUE` if `append` is
+#'  also `TRUE`.
+#' @param append (`logical`)\cr
+#'  Allow appending to the destination table. Cannot be `TRUE` if `overwrite` is
+#'  also `TRUE`.
+#' @param field.types (`character`)\cr
+#'   FIXME
+#' @param temporary (`character`)\cr
+#'   FIXME
 #' @export
 setMethod(
   "dbWriteTable", c("duckdb_connection", "character", "data.frame"),
@@ -358,14 +369,20 @@ setMethod(
   }
 )
 
-
-read_csv_duckdb <- duckdb.read.csv <- function(conn, files, tablename, header = TRUE, na.strings = "", nrow.check = 500,
-                                               delim = ",", quote = "\"", col.names = NULL, lower.case.names = FALSE, sep = delim, transaction = TRUE, ...) {
+read_csv_duckdb <- duckdb.read.csv <- function(conn, files, tablename,
+                                               header = TRUE, na.strings = "",
+                                               nrow.check = 500,
+                                               delim = ",", quote = "\"",
+                                               col.names = NULL,
+                                               lower.case.names = FALSE,
+                                               sep = delim, transaction = TRUE,
+                                               ...) {
 
   if (length(na.strings) > 1) stop("na.strings must be of length 1")
   if (!missing(sep)) delim <- sep
 
-  headers <- lapply(files, utils::read.csv, sep = delim, na.strings = na.strings, quote = quote, nrows = nrow.check, header = header, ...)
+  headers <- lapply(files, utils::read.csv, sep = delim, na.strings = na.strings,
+                    quote = quote, nrows = nrow.check, header = header, ...)
   if (length(files) > 1) {
     nn <- sapply(headers, ncol)
     if (!all(nn == nn[1])) stop("Files have different numbers of columns")

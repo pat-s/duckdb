@@ -2,9 +2,16 @@
 % Please edit documentation in R/Driver.R
 \name{duckdb}
 \alias{duckdb}
-\title{DuckDB driver}
+\title{DuckDB main workhorse driver}
 \usage{
 duckdb(dbdir = DBDIR_MEMORY, read_only = FALSE)
+}
+\arguments{
+\item{dbdir}{(`character`)\cr
+FIXME}
+
+\item{read_only}{(`logical`)\cr
+FIXME}
 }
 \description{
 TBD.
@@ -14,4 +21,5 @@ TBD.
 #' library(DBI)
 duckdb::duckdb()
 }
+
 }
