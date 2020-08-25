@@ -1,3 +1,8 @@
+# duckdb 0.2.2 (2020-08-25)
+
+- Same as previous version.
+
+
 # duckdb 0.2.1.9000 (2020-08-25)
 
 * making rchk happier, see #845
