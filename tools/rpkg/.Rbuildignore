@@ -12,3 +12,5 @@ configure
 ^docs$
 build-*
 deploy-*
+^cran-comments\.md$
+^CRAN-RELEASE$
