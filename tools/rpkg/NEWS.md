@@ -1,3 +1,8 @@
+# duckdb 0.2.5.9000 (2020-08-27)
+
+- Internal changes only.
+
+
 # duckdb 0.2.5 (2020-08-25)
 
 - Internal changes only.
