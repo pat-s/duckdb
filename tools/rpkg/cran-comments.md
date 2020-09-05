@@ -1,4 +1,4 @@
-duckdb 0.2.6
+duckdb 0.2.7
 
 ## Cran Repository Policy
 
