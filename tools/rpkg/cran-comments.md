@@ -1,4 +1,4 @@
-duckdb 0.2.5
+duckdb 0.2.6
 
 ## Cran Repository Policy
 
@@ -7,10 +7,10 @@ duckdb 0.2.5
 ## R CMD check results
 
 - [x] Checked locally, R 4.0.2
-- [x] Checked on CI system, R 4.0.2
-- [x] Checked on win-builder, R devel
+- [ ] Checked on CI system, R 4.0.2
+- [ ] Checked on win-builder, R devel
 
-- [x] Check the boxes above after successful execution and remove this line. Then run `fledge::release()`.
+Check the boxes above after successful execution and remove this line. Then run `fledge::release()`.
 
 ## Current CRAN check results
 
